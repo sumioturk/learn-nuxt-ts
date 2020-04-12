@@ -5,7 +5,7 @@
       <h1 class="title">nuxt-ts</h1>
       <h2 class="subtitle">TypeScript powered Nuxt tutorial</h2>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
+        <a @click="onClick" class="button--green">Click Me</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
@@ -23,7 +23,8 @@ import Logo from '@/components/Logo.vue';
     Logo
   }
 })
-export default class Index extends Vue {}
+export default class Index extends Vue {
+}
 </script>
 
 <style>

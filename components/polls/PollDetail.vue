@@ -28,6 +28,8 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
 import { Poll, Choice, ChoiceVote } from '@/lib/polls/models';
 import { pollsModule } from '@/store/polls/const';
+import axios from 'axios';
+import curlirize from 'axios-curlirize'
 
 @Component({})
 export default class PollDetail extends Vue {
@@ -55,6 +57,39 @@ export default class PollDetail extends Vue {
 
   public selectChoice(choice: Choice): void {
     this.selectedChoiceId = choice.id;
+    const map = new Map<string, string>();
+    const heads = new Map<string, string>();
+    heads.set('authorization', 'alskjdlnlakdsf');
+    map.set('key1', 'value1');
+    map.set('key2', 'value2');
+    map.set('key3', 'true');
+    map.set('key4', '12333');
+    curlirize(axios)
+    axios({
+      method: "GET",
+      baseURL: 'http://localhost:8080',
+      url: '/static/json/data.json',
+      params: this.stringMapToJson(map),
+      headers: this.stringMapToJson(heads),
+      data: {
+        "content" : {
+          "name" : "aaaa"
+        },
+        "entity" : 123121
+      } 
+    }).then(res => {
+      alert(JSON.stringify(res.data))
+    });
+  }
+
+  public stringMapToJson(map: Map<string, string>): Object {
+    let json = '{';
+    map.forEach((v, k) => {
+      json += `"${k}":"${v}",`;
+    });
+    json = json.substr(0, json.length - 1);
+    json += '}';
+    return JSON.parse(json);
   }
 
   public voteChoice(): void {
